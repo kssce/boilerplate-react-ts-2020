@@ -1,0 +1,5 @@
+/src/index.tsx
+/src/serviceWorker.ts
+/src/setupProxy.ts
+/build/**
+/node_modules/**

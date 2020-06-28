@@ -41,4 +41,10 @@ module.exports = {
     'no-param-reassign': 1,
     'no-use-before-define': 1,
   },
+  globals: {
+    test: true,
+    expect: true,
+    describe: true,
+    it: true,
+  },
 };

@@ -420,3 +420,5 @@ $RECYCLE.BIN/
 .idea/
 /src/lib/constants/network.js
 /src/setupProxy.js
+__snapshots__/
+build/
