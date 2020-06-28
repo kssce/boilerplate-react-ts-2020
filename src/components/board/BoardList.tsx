@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   fetchBoardList,
@@ -11,7 +12,7 @@ function BoardList(): JSX.Element {
   const list: BoardListType = useComponentInit();
 
   return (
-    <div>
+    <Root>
       {list.map(({ id, name }: BoardItem) => {
         return (
           <div key={id}>
@@ -20,7 +21,7 @@ function BoardList(): JSX.Element {
           </div>
         );
       })}
-    </div>
+    </Root>
   );
 }
 
@@ -39,4 +40,8 @@ function selector({ board }: RootState) {
   return board.list;
 }
 
+const Root = styled.div`
+  background-color: #3385bb;
+  color: white;
+`;
 export default BoardList;

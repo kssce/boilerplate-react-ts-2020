@@ -6,7 +6,7 @@
 - [x] state management
     - redux, redux-saga, react-redux, immer, typesafe-actions
 
-- [ ] style
+- [x] style
     - styled-components
 
 - [ ] router
