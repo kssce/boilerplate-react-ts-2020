@@ -15,7 +15,7 @@
 - [ ] helper
     - axios, lodash, redux-form
 
-- [ ] test
+- [x] test
     - react-testing-library, enzyme, redux-saga-test-plan
 
 - [x] assistance
