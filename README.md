@@ -1,7 +1,10 @@
 # React boilerplate by Typescript
 
-- [ ] status
-    - redux, redux-saga, react-redux, immer, redux-actions
+> **You should need files these `/src/lib/constants/network.js`, `/src/setupProxy.js`.**
+
+---
+- [x] state management
+    - redux, redux-saga, react-redux, immer, typesafe-actions
 
 - [ ] style
     - styled-components
@@ -12,8 +15,8 @@
 - [ ] splitter
     - react-loadable
 
-- [ ] helper
-    - axios, lodash, redux-form
+- [x] helper
+    - axios, lodash, react-hook-form, nanoid
 
 - [x] test
     - react-testing-library, enzyme, redux-saga-test-plan

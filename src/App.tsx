@@ -1,7 +1,16 @@
 import React from 'react';
+import { useInitializeApp } from './lib/initializer/useInitializeApp';
+import { BoardList } from './components/board';
 
 function App() {
-  return <div className="App">Happy Hacking.</div>;
+  useInitializeApp();
+
+  return (
+    <div id="main">
+      <h2>Boilerplate for React by Typescript</h2>
+      <BoardList />
+    </div>
+  );
 }
 
 export default App;

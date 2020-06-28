@@ -40,6 +40,7 @@ module.exports = {
     'import/no-cycle': 1,
     'no-param-reassign': 1,
     'no-use-before-define': 1,
+    '@typescript-eslint/no-use-before-define': 1,
   },
   globals: {
     test: true,
