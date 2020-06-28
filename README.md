@@ -1,22 +1,22 @@
 # React boilerplate by Typescript
 
-- status
+- [ ] status
     - redux, redux-saga, react-redux, immer, redux-actions
 
-- style
+- [ ] style
     - styled-components
 
-- router
+- [ ] router
     - redux-router
 
-- splitter
+- [ ] splitter
     - react-loadable
 
-- helper
+- [ ] helper
     - axios, lodash, redux-form
 
-- test
+- [ ] test
     - react-testing-library, enzyme, redux-saga-test-plan
 
-- assistance
+- [ ] assistance
     - linter, prettier, husky, lint-staged, http-proxy-middleware, redux-devtools-extension
