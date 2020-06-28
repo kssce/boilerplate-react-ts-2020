@@ -18,5 +18,5 @@
 - [ ] test
     - react-testing-library, enzyme, redux-saga-test-plan
 
-- [ ] assistance
+- [x] assistance
     - linter, prettier, husky, lint-staged, http-proxy-middleware, redux-devtools-extension

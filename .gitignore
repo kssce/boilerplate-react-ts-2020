@@ -416,4 +416,7 @@ $RECYCLE.BIN/
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,windows,eclipse,intellij,webstorm,node,react,visualstudiocode
 
+# project
 .idea/
+/src/lib/constants/network.js
+/src/setupProxy.js
