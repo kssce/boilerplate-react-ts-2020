@@ -1,6 +1,6 @@
 import React from 'react';
 import { useInitializeApp } from './lib/initializer/useInitializeApp';
-import { BoardList } from './components/board';
+import Main from './components/pages/Main';
 
 function App() {
   useInitializeApp();
@@ -8,7 +8,7 @@ function App() {
   return (
     <div id="main">
       <h2>Boilerplate for React by Typescript</h2>
-      <BoardList />
+      <Main />
     </div>
   );
 }

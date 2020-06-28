@@ -9,10 +9,10 @@
 - [x] style
     - styled-components
 
-- [ ] router
+- [x] router
     - redux-router
 
-- [ ] splitter
+- [x] splitter
     - react-loadable
 
 - [x] helper
