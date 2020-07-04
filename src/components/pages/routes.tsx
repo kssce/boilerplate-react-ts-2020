@@ -1,7 +1,15 @@
 import React from 'react';
-import Loadable from 'react-loadable';
+import loadable from '@loadable/component';
 
-const Loading = () => <div>loading...</div>;
+type Component = () => Promise<any>;
+
+function ComponentWithFallback(component: Component) {
+  return loadable(component, { fallback: <Loading /> });
+}
+
+function Loading() {
+  return <div>loading...</div>;
+}
 
 export interface RouterType {
   name: string;
@@ -18,28 +26,19 @@ const rootRouter: RouterType = {
 const notFoundRouter: RouterType = {
   name: 'Not found',
   uri: '/not-found',
-  component: Loadable({
-    loader: () => import('./NotFound'),
-    loading: Loading,
-  }),
+  component: ComponentWithFallback(() => import('./NotFound')),
 };
 
 const boardListRouter: RouterType = {
   name: 'Board list',
   uri: '/board',
-  component: Loadable({
-    loader: () => import('../board/BoardList'),
-    loading: Loading,
-  }),
+  component: ComponentWithFallback(() => import('../board/BoardList')),
 };
 
 const aboutRouter: RouterType = {
   name: 'About',
   uri: '/about',
-  component: Loadable({
-    loader: () => import('../about/About'),
-    loading: Loading,
-  }),
+  component: ComponentWithFallback(() => import('../about/About')),
 };
 
 export { rootRouter, notFoundRouter, boardListRouter, aboutRouter };
