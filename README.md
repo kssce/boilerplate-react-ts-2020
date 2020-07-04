@@ -13,7 +13,7 @@
     - redux-router
 
 - [x] splitter
-    - react-loadable
+    - loadable-component
 
 - [x] helper
     - axios, lodash, react-hook-form, nanoid
