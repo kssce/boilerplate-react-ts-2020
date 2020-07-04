@@ -1,6 +1,7 @@
 # React boilerplate by Typescript
 
 > **You should need files these `/src/lib/constants/network.js`, `/src/setupProxy.js`.**
+> Should `network.js` have variables these `BASE_URI, NwMethod, TIMEOUT`.
 
 ---
 - [x] state management
