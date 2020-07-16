@@ -10,3 +10,7 @@ export enum NwMethod {
 }
 
 export const BASE_URI = API_PREFIX;
+
+export const HTTP_CODE = Object.freeze({
+  UNAUTHORIZED: 401,
+});

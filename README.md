@@ -23,3 +23,5 @@
 
 - [x] assistance
     - linter, prettier, husky, lint-staged, http-proxy-middleware, redux-devtools-extension
+    
+- [x] authentication / authorization

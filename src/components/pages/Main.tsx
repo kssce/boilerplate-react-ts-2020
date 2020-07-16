@@ -20,8 +20,9 @@ function Main(): JSX.Element {
 
 const Root = styled.div`
   display: flex;
+  flex: 1;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
 `;
 const Divider = styled.hr`
   width: 100%;

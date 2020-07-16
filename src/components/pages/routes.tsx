@@ -41,4 +41,16 @@ const aboutRouter: RouterType = {
   component: ComponentWithFallback(() => import('../about/About')),
 };
 
-export { rootRouter, notFoundRouter, boardListRouter, aboutRouter };
+const loginRouter: RouterType = {
+  name: 'Login',
+  uri: '/login',
+  component: ComponentWithFallback(() => import('../auth/Login')),
+};
+
+export {
+  rootRouter,
+  notFoundRouter,
+  boardListRouter,
+  aboutRouter,
+  loginRouter,
+};

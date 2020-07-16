@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
 
+type PromiseFunc = () => Promise<any>;
+type AnyArr = any[];
+
 /**
  *
  * @param promiseCreator
  * @param deps
  */
-export default function usePromise(
-  promiseCreator: () => Promise<any>,
-  deps: [any],
-) {
+export default function usePromise(promiseCreator: PromiseFunc, deps: AnyArr) {
   const [resolved, setResolved] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);

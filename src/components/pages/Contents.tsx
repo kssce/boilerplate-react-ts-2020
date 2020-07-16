@@ -8,16 +8,20 @@ import {
   RouterType,
   aboutRouter,
 } from './routes';
+import PrivateRoute from '../auth/PrivateRoute';
 
 export default function Contents(): JSX.Element {
   return (
     <Root>
       <Switch>
-        <Route
+        <PrivateRoute
           path={boardListRouter.uri}
           component={boardListRouter.component}
         />
-        <Route path={aboutRouter.uri} component={aboutRouter.component} />
+        <PrivateRoute
+          path={aboutRouter.uri}
+          component={aboutRouter.component}
+        />
         <Route
           path={rootRouter.uri}
           exact

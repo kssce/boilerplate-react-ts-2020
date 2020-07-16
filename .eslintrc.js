@@ -39,8 +39,16 @@ module.exports = {
     'array-callback-return': 1,
     'import/no-cycle': 1,
     'no-param-reassign': 1,
-    'no-use-before-define': 1,
-    '@typescript-eslint/no-use-before-define': 1,
+    'no-use-before-define': 0,
+    '@typescript-eslint/no-use-before-define': 0,
+    'jsx-a11y/label-has-associated-control': [
+      2,
+      {
+        required: {
+          every: ['id'],
+        },
+      },
+    ],
   },
   globals: {
     test: true,

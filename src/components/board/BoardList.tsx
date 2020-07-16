@@ -10,17 +10,28 @@ import { RootState } from '../../data/rootReducer';
 
 function BoardList(): JSX.Element {
   const list: BoardListType = useComponentInit();
-
   return (
     <Root>
-      {list.map(({ id, name }: BoardItem) => {
-        return (
-          <div key={id}>
-            <span>{id}:</span>
-            <span>{name}</span>
-          </div>
-        );
-      })}
+      {list.map(
+        ({
+          seq,
+          version,
+          title,
+          grade,
+          subject,
+          function: func,
+        }: BoardItem) => {
+          return (
+            <ContentsWrap key={seq}>
+              <span>{version}:</span>
+              <span> | {title}</span>
+              <span> | {grade}</span>
+              <span> | {subject}</span>
+              <span> | {func}</span>
+            </ContentsWrap>
+          );
+        },
+      )}
     </Root>
   );
 }
@@ -37,11 +48,15 @@ function useComponentInit() {
 }
 
 function selector({ board }: RootState) {
-  return board.list;
+  return board.list || [];
 }
 
 const Root = styled.div`
-  background-color: #3385bb;
-  color: white;
+  border: 1px dashed black;
+`;
+
+const ContentsWrap = styled.div`
+  display: flex;
+  flex-wrap: wrap;
 `;
 export default BoardList;

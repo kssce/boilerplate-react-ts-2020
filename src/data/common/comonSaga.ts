@@ -6,6 +6,8 @@ import { NwMethod } from '../../lib/constants/network';
 export interface ApiOption {
   method: NwMethod;
   url: string;
+  data?: { [key: string]: any };
+  headers?: { [key: string]: any };
 }
 
 export function* callAPISaga(
@@ -14,7 +16,7 @@ export function* callAPISaga(
 ) {
   yield put(setLoading(true));
   try {
-    return yield call(apiInstance[options.method], options.url);
+    return yield call(apiInstance.request, options);
   } finally {
     yield put(setLoading(false));
   }

@@ -16,8 +16,12 @@ type BoardAction = ActionType<typeof actions>;
 
 // [ data ]
 export interface BoardItem {
-  id: number;
-  name: string;
+  seq: number;
+  version: string;
+  title: string;
+  grade: string;
+  subject: string;
+  function: string;
 }
 export type BoardListType = BoardItem[];
 interface BoardState {
