@@ -1,7 +1,7 @@
 import { put, call, take } from 'redux-saga/effects';
-import axios, { AxiosStatic } from 'axios';
 import { HANDLE_ERR, setLoading } from './commonReducer';
 import { NwMethod } from '../../lib/constants/network';
+import axiosInstance from '../../lib/initializer/xhrInitializer';
 
 export interface ApiOption {
   method: NwMethod;
@@ -10,10 +10,7 @@ export interface ApiOption {
   headers?: { [key: string]: any };
 }
 
-export function* callAPISaga(
-  options: ApiOption,
-  apiInstance: AxiosStatic = axios,
-) {
+export function* callAPISaga(options: ApiOption, apiInstance = axiosInstance) {
   yield put(setLoading(true));
   try {
     return yield call(apiInstance.request, options);

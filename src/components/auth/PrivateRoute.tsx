@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Redirect, Route } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { selectIsLogin } from '../../lib/helpers/selector';
+import { useDispatch, useSelector } from 'react-redux';
 import { loginRouter } from '../pages/routes';
+import { loginWithTokenAndReturnLoginResult } from '../../data/auth/authReducer';
+import usePromise from '../../lib/hooks/usePromise';
+import { selectIsLogin } from '../../lib/helpers/selector';
 
 interface Router {
   component: any;
@@ -11,7 +13,9 @@ interface Router {
 }
 
 function PrivateRoute({ component: Component, ...rest }: Router) {
-  const isLogin = useSelector(selectIsLogin);
+  const { isLogin, isRefreshed } = useLoginState();
+
+  if (isRefreshed) return null;
 
   return (
     <Route
@@ -26,6 +30,26 @@ function PrivateRoute({ component: Component, ...rest }: Router) {
         )
       }
     />
+  );
+}
+
+function useLoginState() {
+  const dispatch = useDispatch();
+  const loginStateFromStore = useSelector(selectIsLogin);
+  // return { isLogin: loginStateFromStore, isRefreshed: false };
+
+  const { resolved: loginStateFromLocalStorage } = usePromise(() => {
+    return new Promise(resolve => {
+      dispatch(loginWithTokenAndReturnLoginResult({ resolve }));
+    });
+  }, [loginStateFromStore]);
+
+  return useMemo(
+    () => ({
+      isLogin: loginStateFromStore || loginStateFromLocalStorage,
+      isRefreshed: loginStateFromStore === null,
+    }),
+    [loginStateFromLocalStorage, loginStateFromStore],
   );
 }
 

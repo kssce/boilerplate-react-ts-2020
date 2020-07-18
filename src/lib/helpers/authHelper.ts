@@ -8,11 +8,13 @@ import {
 import { AuthToken } from '../../models/Networks';
 import { EMPTY_STR } from '../constants/common';
 
-function getToken(key: typeof ACCESS_TOKEN_KEY | typeof REFRESH_TOKEN_KEY) {
+export function getToken(
+  key?: typeof ACCESS_TOKEN_KEY | typeof REFRESH_TOKEN_KEY,
+) {
   const serializedToken = localStorage.getItem(AUTH_TOKEN_KEY);
   if (serializedToken) {
     const token: AuthToken = JSON.parse(serializedToken);
-    return token[key];
+    return key ? token[key] : token;
   }
   return EMPTY_STR;
 }
@@ -40,4 +42,8 @@ export function getHeaderWithRefreshToken() {
 export function getDeviceId() {
   // return `This is temporary device token id.(${nanoid()})`;
   return `This is temporary device token id.`;
+}
+
+export function hasTokenFromLocalStorage() {
+  return getToken() !== EMPTY_STR;
 }

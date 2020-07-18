@@ -1,11 +1,12 @@
 import { fork } from 'redux-saga/effects';
 import { fetchBoardListSaga } from './board/boardSaga';
-import { handleErrSaga } from './common/comonSaga';
+import { handleErrSaga } from './common/commonSaga';
 import {
   logoutSaga,
   loginSaga,
   loginWithTokenSaga,
   refreshTokenSaga,
+  loginWithTokenAndResolvePromiseSaga,
 } from './auth/authSaga';
 
 export default function* rootSaga() {
@@ -17,6 +18,7 @@ export default function* rootSaga() {
   yield fork(loginWithTokenSaga);
   yield fork(logoutSaga);
   yield fork(refreshTokenSaga);
+  yield fork(loginWithTokenAndResolvePromiseSaga);
 
   // board
   yield fork(fetchBoardListSaga);
