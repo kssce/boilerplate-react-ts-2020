@@ -55,5 +55,8 @@ module.exports = {
     expect: true,
     describe: true,
     it: true,
+    native: true,
+    webkit: true,
+    jest: true,
   },
 };

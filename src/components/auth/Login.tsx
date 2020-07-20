@@ -2,7 +2,7 @@ import React, { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm, Controller } from 'react-hook-form';
 import { Redirect } from 'react-router-dom';
-import { login, User } from '../../data/auth/authReducer';
+import { login, Authable } from '../../data/auth/authReducer';
 import { HookFormable } from '../../models/Form';
 import { ID, PW } from './lib/constants';
 import { FormableError } from './lib/data';
@@ -19,7 +19,7 @@ function LoginContainer() {
 }
 
 function Login() {
-  const { control, errors, handleSubmit } = useForm<HookFormable & User>();
+  const { control, errors, handleSubmit } = useForm<HookFormable & Authable>();
   const { submit } = useMethods();
 
   return (

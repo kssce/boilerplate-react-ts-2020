@@ -6,5 +6,7 @@ import '@testing-library/jest-dom/extend-expect';
 /* eslint-disable import/no-extraneous-dependencies */
 import Enzyme from 'enzyme';
 import ReactSixteenAdapter from 'enzyme-adapter-react-16';
+import '../__test__/xhrSetup';
+import '../__test__/dexieMock';
 
 Enzyme.configure({ adapter: new ReactSixteenAdapter() });

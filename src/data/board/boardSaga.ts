@@ -1,10 +1,9 @@
 import { call, take, put } from 'redux-saga/effects';
 import { FETCH_BOARD_LIST, setBoardList, BoardListType } from './boardReducer';
 import { callAPISaga } from '../common/commonSaga';
-import { NwMethod } from '../../lib/constants/network';
 import { handleErr } from '../common/commonReducer';
 import { URI_BOARD_LIST } from '../../lib/constants/api';
-import { FetchedData } from '../../models/Networks';
+import { FetchedData, NwMethod } from '../../models/Networks';
 
 // eslint-disable-next-line import/prefer-default-export
 export function* fetchBoardListSaga() {

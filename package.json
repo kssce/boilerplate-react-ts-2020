@@ -16,7 +16,9 @@
     "@types/react-redux": "^7.1.9",
     "@types/react-router-dom": "^5.1.5",
     "@types/styled-components": "^5.1.0",
+    "@types/yup": "^0.29.3",
     "axios": "^0.19.2",
+    "dexie": "^3.0.1",
     "immer": "^7.0.5",
     "lodash": "^4.17.15",
     "nanoid": "^3.1.10",
@@ -30,7 +32,8 @@
     "redux-saga": "^1.1.3",
     "styled-components": "^5.1.1",
     "typesafe-actions": "^5.1.0",
-    "typescript": "^3.8.0"
+    "typescript": "^3.8.0",
+    "yup": "^0.29.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -58,10 +61,12 @@
     ]
   },
   "devDependencies": {
+    "@types/axios-mock-adapter": "^1.10.0",
     "@types/enzyme": "^3.10.5",
     "@types/enzyme-adapter-react-16": "^1.0.6",
     "@typescript-eslint/eslint-plugin": "^3.4.0",
     "@typescript-eslint/parser": "^3.4.0",
+    "axios-mock-adapter": "^1.18.2",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
     "enzyme-to-json": "^3.5.0",
@@ -81,7 +86,7 @@
     "prettier": "^2.0.5",
     "redux-devtools-extension": "^2.13.8",
     "redux-saga-test-plan": "^4.0.0-rc.3",
-    "ts-jest": "^26.1.1"
+    "ts-jest": "^26.1.3"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
@@ -98,7 +103,8 @@
       "src/**/*.{js,jsx,ts,tsx}",
       "!src/**/*.d.ts",
       "!src/index.tsx",
-      "!src/serviceWorker.ts"
+      "!src/serviceWorker.ts",
+      "!<rootDir>/node_modules/"
     ],
     "coveragePathIgnorePatterns": [
       "./src/*/*.types.{ts,tsx}"

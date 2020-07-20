@@ -1,14 +1,14 @@
 import { call, put, take } from 'redux-saga/effects';
 import { callAPISaga } from '../common/commonSaga';
-import { NwMethod } from '../../lib/constants/network';
 import { handleErr } from '../common/commonReducer';
 import {
   URI_LOGIN,
   URI_LOGOUT,
   URI_LOGIN_WITH_TOKEN,
   URI_REFRESH_TOKEN,
+  URI_DEVICE_TOKEN,
 } from '../../lib/constants/api';
-import { AuthToken, FetchedData } from '../../models/Networks';
+import { AuthToken, FetchedData, NwMethod } from '../../models/Networks';
 import {
   LOGIN,
   LOGOUT,
@@ -17,42 +17,49 @@ import {
   REFRESH_TOKEN,
   LOGIN_WITH_TOKEN_AND_RETURN_LOGIN_RESULT,
 } from './authReducer';
-import {
-  ID_FIELD,
-  PW_FIELD,
-  DEVICE_TOKEN_FIELD,
-} from '../../lib/constants/serverFields';
-import { EMPTY_STR } from '../../lib/constants/common';
+import { DEVICE_TOKEN_KEY, EMPTY_STR } from '../../lib/constants/common';
 import {
   setTokenToLocalStorage,
   getHeaderWithRefreshToken,
-  getDeviceId,
   getToken,
   hasTokenFromLocalStorage,
 } from '../../lib/helpers/authHelper';
 import { Fn } from '../../models/Common';
+import AppDatabase, {
+  TableName,
+  AccessMode,
+  getDbAndTable,
+} from '../../lib/modules/AppDatabase';
+import { setUser } from '../user/userReducer';
+import { CredentialFields } from '../../models/ServerFields';
 
 export function* loginSaga() {
+  const {
+    id: idField,
+    pw: pwField,
+    deviceToken: deviceTokenField,
+  } = CredentialFields;
   while (true) {
     const {
-      payload: { [ID_FIELD]: id, [PW_FIELD]: pw },
+      payload: { [idField]: id, [pwField]: pw },
     } = yield take(LOGIN);
 
     yield call(runWithHandleForAuthException, function* callbackForSuccess() {
+      const deviceToken = yield call(getDeviceTokenSaga);
       const {
         data: { value },
       }: FetchedData<AuthToken> = yield call(callAPISaga, {
         method: NwMethod.POST,
         url: URI_LOGIN,
         data: {
-          [ID_FIELD]: id,
-          [PW_FIELD]: pw,
-          [DEVICE_TOKEN_FIELD]: getDeviceId(),
+          [idField]: id,
+          [pwField]: pw,
+          [deviceTokenField]: deviceToken,
         },
       });
 
-      setTokenToLocalStorage(value);
       yield put(setLogin(true));
+      setTokenToLocalStorage(value);
     });
   }
 }
@@ -149,6 +156,7 @@ function* runWithHandleForAuthException(
   } catch (err) {
     yield call(clearLoginDataSaga);
     yield put(handleErr({ err }));
+    yield put(setUser(null));
 
     if (callbackForFail) yield call(callbackForFail);
   }
@@ -157,4 +165,56 @@ function* runWithHandleForAuthException(
 function* clearLoginDataSaga() {
   setTokenToLocalStorage(EMPTY_STR);
   yield put(setLogin(false));
+}
+
+export function* getDeviceTokenSaga() {
+  try {
+    const { db, table: metaTable } = yield call(getDbAndTable, TableName.META);
+    let deviceToken = yield call(getDeviceTokenFromLocalSaga, db, metaTable);
+
+    if (!deviceToken) {
+      deviceToken = yield call(getDeviceTokenFromServerSaga);
+      yield call(setDeviceTokenToLocalSaga, db, metaTable, deviceToken);
+    }
+    return deviceToken;
+  } catch (err) {
+    yield put(handleErr({ err }));
+    return null;
+  }
+}
+
+function* getDeviceTokenFromLocalSaga(db: AppDatabase, metaTable: any) {
+  return yield db.transaction(AccessMode.RW, metaTable, async () => {
+    const metaTableRows = await metaTable.toArray();
+
+    if (!metaTableRows.length) return null;
+
+    const { [CredentialFields.deviceToken]: deviceToken } = metaTableRows[0];
+    return deviceToken;
+  });
+}
+
+function* getDeviceTokenFromServerSaga() {
+  const {
+    data: { value: deviceTokenFromServer },
+  } = yield call(callAPISaga, {
+    method: NwMethod.GET,
+    url: URI_DEVICE_TOKEN,
+  });
+
+  return deviceTokenFromServer;
+}
+
+function* setDeviceTokenToLocalSaga(
+  db: AppDatabase,
+  metaTable: any,
+  deviceToken: string,
+) {
+  return yield db.transaction(AccessMode.RW, metaTable, async () => {
+    // return created auto increment id
+    return metaTable.add({
+      [DEVICE_TOKEN_KEY]: deviceToken,
+      createdAt: new Date(),
+    });
+  });
 }

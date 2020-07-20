@@ -616,3 +616,4 @@ $RECYCLE.BIN/
 /src/setupProxy.js
 __snapshots__/
 build/
+src/configs

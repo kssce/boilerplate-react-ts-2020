@@ -6,4 +6,4 @@ export interface Promisable {
   resolve: () => any;
 }
 
-export type BooleanWithNull = boolean | null;
+export type NullableBoolean = boolean | null;

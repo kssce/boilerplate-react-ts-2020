@@ -4,3 +4,7 @@ import { RootState } from '../../data/rootReducer';
 export function selectIsLogin({ auth }: RootState) {
   return auth.isLogin;
 }
+
+export function selectUserSeq({ user }: RootState) {
+  return user.user?.seq;
+}

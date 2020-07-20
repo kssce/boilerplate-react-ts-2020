@@ -8,6 +8,7 @@ import {
   refreshTokenSaga,
   loginWithTokenAndResolvePromiseSaga,
 } from './auth/authSaga';
+import { fetchUserSaga } from './user/userSaga';
 
 export default function* rootSaga() {
   // common
@@ -19,6 +20,9 @@ export default function* rootSaga() {
   yield fork(logoutSaga);
   yield fork(refreshTokenSaga);
   yield fork(loginWithTokenAndResolvePromiseSaga);
+
+  // user
+  yield fork(fetchUserSaga);
 
   // board
   yield fork(fetchBoardListSaga);

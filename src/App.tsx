@@ -6,6 +6,7 @@ import { loginRouter } from './components/pages/routes';
 
 function App() {
   useInitializeApp();
+
   return (
     <div id="main">
       <Switch>

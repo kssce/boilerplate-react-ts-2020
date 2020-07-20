@@ -1,17 +1,21 @@
-// import { nanoid } from 'nanoid';
-import {
-  ACCESS_TOKEN_KEY,
-  AUTH_TOKEN_KEY,
-  REFRESH_TOKEN_KEY,
-  TOKEN_KEY_FOR_HEADER,
-} from '../constants/serverFields';
 import { AuthToken } from '../../models/Networks';
-import { EMPTY_STR } from '../constants/common';
+import { AUTH_TOKEN_KEY, EMPTY_STR } from '../constants/common';
+import {
+  getItemFromLocalStorage,
+  setItemFromLocalStorage,
+} from './localStorage';
+import {
+  CredentialFields,
+  TokenFieldsForHeader,
+} from '../../models/ServerFields';
 
-export function getToken(
-  key?: typeof ACCESS_TOKEN_KEY | typeof REFRESH_TOKEN_KEY,
-) {
-  const serializedToken = localStorage.getItem(AUTH_TOKEN_KEY);
+const {
+  accessToken: accessTokenKey,
+  refreshToken: refreshTokenKey,
+} = CredentialFields;
+
+export function getToken(key?: typeof accessTokenKey | typeof refreshTokenKey) {
+  const serializedToken = getItemFromLocalStorage(AUTH_TOKEN_KEY);
   if (serializedToken) {
     const token: AuthToken = JSON.parse(serializedToken);
     return key ? token[key] : token;
@@ -21,7 +25,7 @@ export function getToken(
 
 // eslint-disable-next-line import/prefer-default-export
 export function getAccessTokenFromLocalStorage() {
-  return getToken(ACCESS_TOKEN_KEY);
+  return getToken(accessTokenKey);
 }
 
 export function setTokenToLocalStorage(authToken: AuthToken | string) {
@@ -32,16 +36,13 @@ export function setTokenToLocalStorage(authToken: AuthToken | string) {
   } else {
     token = JSON.stringify(authToken);
   }
-  localStorage.setItem(AUTH_TOKEN_KEY, token);
+  setItemFromLocalStorage(AUTH_TOKEN_KEY, token);
 }
 
 export function getHeaderWithRefreshToken() {
-  return { [TOKEN_KEY_FOR_HEADER.REFRESH]: getToken(REFRESH_TOKEN_KEY) };
-}
-
-export function getDeviceId() {
-  // return `This is temporary device token id.(${nanoid()})`;
-  return `This is temporary device token id.`;
+  return {
+    [TokenFieldsForHeader.refresh]: getToken(refreshTokenKey),
+  };
 }
 
 export function hasTokenFromLocalStorage() {

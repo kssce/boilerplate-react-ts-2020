@@ -1,9 +1,10 @@
 import { Dispatch } from 'react';
 import axios from 'axios';
-import { BASE_URI, TIMEOUT, HTTP_CODE } from '../constants/network';
+import { BASE_URI, TIMEOUT } from '../../configs/network';
 import { getAccessTokenFromLocalStorage } from '../helpers/authHelper';
-import { TOKEN_KEY_FOR_HEADER } from '../constants/serverFields';
 import { refreshToken } from '../../data/auth/authReducer';
+import { TokenFieldsForHeader } from '../../models/ServerFields';
+import { HttpCode } from '../../models/Networks';
 
 axios.defaults.baseURL = BASE_URI;
 axios.defaults.timeout = TIMEOUT;
@@ -16,7 +17,7 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   async config => {
     config.headers[
-      TOKEN_KEY_FOR_HEADER.ACCESS
+      TokenFieldsForHeader.access
     ] = getAccessTokenFromLocalStorage();
     // config.headers['Content-Type'] = 'application/json';
     return config;
@@ -47,15 +48,15 @@ async function initResHeader(dispatch: Dispatch<any>) {
 
 function handleCommonException(dispatch: Dispatch<any>, status: any) {
   switch (status) {
-    case HTTP_CODE.UNAUTHORIZED:
+    case HttpCode.UNAUTHORIZED:
       dispatch(refreshToken());
       break;
 
-    case HTTP_CODE.FORBIDDEN:
+    case HttpCode.FORBIDDEN:
       // 자원 요청 거부 공통 로직
       break;
 
-    case HTTP_CODE.INTERNAL_SERVER_ERROR:
+    case HttpCode.INTERNAL_SERVER_ERROR:
       // 서버 에러 공통 로직
       break;
 

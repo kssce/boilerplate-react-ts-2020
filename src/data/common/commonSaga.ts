@@ -1,7 +1,7 @@
 import { put, call, take } from 'redux-saga/effects';
 import { HANDLE_ERR, setLoading } from './commonReducer';
-import { NwMethod } from '../../lib/constants/network';
 import axiosInstance from '../../lib/initializer/xhrInitializer';
+import { NwMethod } from '../../models/Networks';
 
 export interface ApiOption {
   method: NwMethod;

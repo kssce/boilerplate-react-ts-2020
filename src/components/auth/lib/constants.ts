@@ -1,11 +1,11 @@
-import { ID_FIELD, PW_FIELD } from '../../../lib/constants/serverFields';
 import { AccountFormable } from './data';
+import { CredentialFields } from '../../../models/ServerFields';
 
 export const ID: AccountFormable = {
-  field: ID_FIELD,
+  field: CredentialFields.id,
   label: 'ID',
 };
 export const PW: AccountFormable = {
-  field: PW_FIELD,
+  field: CredentialFields.pw,
   label: 'PW',
 };
